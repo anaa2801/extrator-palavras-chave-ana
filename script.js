@@ -5,7 +5,7 @@ botaoMostraPalavras.addEventListener("click",mostraPalavrasChaves);
 function mostraPalavrasChaves(){
     const texto = document.querySelector("#entrada-de-texto").value;
     const campoResultado = document.querySelector("#resultado-palavrachave");
-    const palavrasChave = processaTexto(Texto);
+    const palavrasChave = processaTexto(texto);
 
     campoResultado.textContent = palavrasChave.join(", ")
 }
@@ -16,7 +16,7 @@ function processaTexto(texto){
     let frequencias = {};
 
     for(let i of palavras){
-        frequencia[i]=0;
+        frequencias[i]=0;
 
         for (let j of palavras){
             if (i == j){
