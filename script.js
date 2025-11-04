@@ -1,40 +1,38 @@
 const botaoMostraPalavras = document.querySelector("#botao-palavrachave");
 
-botaoMostraPalavras.addEventListener("click",mostraPalavrasChaves);
+botaoMostraPalavras.addEventListener("click", mostraPalavrasChave);
 
-function mostraPalavrasChaves(){
-    const texto = document.querySelector("#entrada-de-texto").value;
-    const campoResultado = document.querySelector("#resultado-palavrachave");
-    const palavrasChave = processaTexto(texto);
+function mostraPalavrasChave(){
+   const texto = document.querySelector("#entrada-de-texto").value;
+   const campoResultado = document.querySelector("#resultado-palavrachave");
+   const palavrasChave = processaTexto(texto);
 
-    campoResultado.textContent = palavrasChave.join(", ")
+   campoResultado.textContent = palavrasChave.join(", ")
 }
 
 function processaTexto(texto){
     let palavras = texto.split(/\P{L}+/u);
 
-    for (let i in palavras){
-        palavras[i]=palavras[i].toLowerCase();
-    }
-    palavras = tiraPalavrasRuins(palavras);
-
     const frequencias = contaFrequencias(palavras);
-let ordenadas = Object.keys(frequencias).sort(ordenaPalavra);
+    let ordenadas = Object.keys(frequencias).sort(ordenaPalavra);
 
-function ordenaPalavra(p1, p2){
-    return frequencias [p2] - frequencias[p1];
+    function ordenaPalavra(p1, p2){
+        return frequencias [p2] - frequencias[p1];
+    }
+    return ordenadas.slice(0,10);
+
+   
 }
-  return ordenadas.slice(0,10);
-}
+
 
 function contaFrequencias(palavras){
+ 
+    let frequencias = {};
 
-  let frequencias = {};
-
-    for(let i of palavras){
+    for (let i of palavras){
         frequencias[i]=0;
 
-        for (let j of palavras){
+        for(let j of palavras){
             if (i == j){
                 frequencias[i]++;
             }
@@ -44,14 +42,14 @@ function contaFrequencias(palavras){
     return frequencias;
 
 }
-
 function tiraPalavrasRuins(palavras){
-    const PALAVRAS_RUINS = new Set(["para", "nós", "como","das", "que"]);
-    const palavrasBoas = [];
+    const PALAVRAS_RUINS = new Set(["para", "nós", "das", "como", "que"])
+    const palavrasBoas =[];
 
-    for (let palavras of palavras){
-        if (!PALAVRAS_RUINS.has(palavra) && palavra.length > 2)
+    for(let palavra of palavras){
+        if (!PALAVRAS_RUINS.has(palavra) && palavra.length > 2){
             palavrasBoas.push(palavra);
+        }
     }
     return palavrasBoas;
 }
